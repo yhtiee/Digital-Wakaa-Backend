@@ -43,8 +43,12 @@ INSTALLED_APPS = [
     "dashboard",
     'corsheaders',
     'rest_framework',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    "payment",
+    "blog"
 ]
+
+
 
 from datetime import timedelta
 
@@ -176,4 +180,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# stripe
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51MpHv9AqvujLwHfeu0Xq0KJEOgTtcE3YmI9AvSnbt1EySQDmKTKdPTAYGTp4YdwU9McIcw0e96Lg9xfF6BV63IXU00hjexiEJR'
 
+STRIPE_SECRET_KEY = 'sk_test_51MpHv9AqvujLwHfe7pELUSGtEkJxGEisYXebNMmBifY5LEeTTyppCFO4Jq8YYUwSnBWWCcBsox5R76S7Tk9V5iCs00zlvV4omh'
+
+
+# frontend
+SITE_URL = "http://localhost:5173"

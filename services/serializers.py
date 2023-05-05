@@ -6,17 +6,33 @@ class ServiceSerializer(serializers.ModelSerializer):
         model = Service
         fields = "__all__"
 
-class PlanSerializer(serializers.ModelSerializer):
+class WorkDescriptionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Plan
+        model = WorkDescription
         fields = "__all__"
 
-class PlanDescriptionSerializer(serializers.ModelSerializer):
+class PlansSerializer(serializers.ModelSerializer):
     class Meta:
-        model = PlanDescriptions
+        model = Plans
         fields = "__all__"
 
-class AboutServiceSerializer(serializers.ModelSerializer):
+class PlansDescription(serializers.ModelSerializer):
     class Meta:
-        model = AboutService
+        model= PlanDescription
         fields = "__all__"
+
+class ExampleService(serializers.ModelSerializer):
+    class Meta:
+        model = ExampleService
+        fields = "__all__"
+
+class MiniServicesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MiniServices
+        fields = "__all__"
+
+class MiniServicesWorkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MiniServiceWorkDescription
+        fields = "__all__"
+

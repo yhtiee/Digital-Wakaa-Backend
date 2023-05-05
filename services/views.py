@@ -12,32 +12,38 @@ class RetrieveService(generics.ListAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
 
+class GetService(generics.RetrieveAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+    lookup_field = "pk"
 
-class ViewService(APIView):
-    def get(self, request,  pk):
-        service = Service.objects.filter(pk = pk).values()
-        serviceId = service[0]["id"]
-        plan = Plan.objects.filter(service_id = serviceId)
-        service = Service.objects.filter(id = serviceId)
-        serializer_service = ServiceSerializer(service, context={"request": request}, many=True)
-        planDescriptions = PlanDescriptions.objects.filter(service_id = serviceId)
-        # aboutService = AboutService.objects.filter(service_id = serviceId)
-        serializer_plan = PlanSerializer(plan, context={"request": request}, many=True)
-        serializer_planDescription = PlanDescriptionSerializer(planDescriptions, context={"request": request}, many=True)
-        # serializer_aboutService = AboutServiceSerializer(aboutService, context={"request": request}, many=True)
-        return Response(data={
-            "status": status.HTTP_200_OK,
-            "service": serializer_service.data,
-            "plans": serializer_plan.data,
-            "descriptions": serializer_planDescription.data,
-            # "about": serializer_aboutService.data
-        })
-
-class ViewPlan(APIView):
+class GetHowItWOrks(APIView):
     def get(self, request, pk):
-        plan = Plan.objects.filter(pk = pk)
-        serializer = PlanSerializer(plan, context={"request":request}, many=True)
+        works = WorkDescription.objects.filter(service_id = pk)
+        serializer = WorkDescriptionSerializer(works, context={"request":request}, many=True)
+        if serializer:
+            return Response(data={"status":status.HTTP_200_OK, "howItWorks": serializer.data})
+        return Response(data={"status":status.HTTP_400_BAD_REQUEST, "error": "not found"})
+    
+class RetrieveMiniServices(APIView):
+    def get(self, request, pk):
+        service = Service.objects.filter(pk = pk).values()
+        # print(f"------>{service}")
+        mini_services = MiniServices.objects.filter(service_id=service[0]["id"])
+        # print(f"------->{mini_services}")
+        serializer = MiniServicesSerializer(mini_services, context={"request": request}, many=True)
+        if serializer:
+            return Response(data={
+                "mini_services":serializer.data
+            }, status=status.HTTP_200_OK)
         return Response(data={
-            "status": status.HTTP_200_OK,
-            "plan": serializer.data
-        })
+            "error":"not found"
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+class RetrieveAllMiniService(generics.ListAPIView):
+    queryset = MiniServices.objects.all()
+    serializer_class = MiniServicesSerializer
+
+class RetrieveMiniService(generics.RetrieveAPIView):
+    queryset = MiniServices.objects.all()
+    serializer_class = MiniServicesSerializer

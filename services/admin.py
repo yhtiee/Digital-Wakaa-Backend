@@ -7,21 +7,34 @@ class ServicesAdmin(admin.ModelAdmin):
 
 admin.site.register(Service, ServicesAdmin)
 
-class PlanAdmin(admin.ModelAdmin):
-    list_display = [ "plan", "plan_cost", "service" ]
+class MiniServicesAdmin(admin.ModelAdmin):
+    list_display = ["name", "description", "image", "service" ]
 
     def service(self, obj):
-        return obj.service.name
+        return obj.services.name
 
-admin.site.register(Plan, PlanAdmin)
+admin.site.register(MiniServices, MiniServicesAdmin)
 
-class PlanDescriptionAdmin(admin.ModelAdmin):
-    list_display = ["description", "plan", "service" ]
+class MiniServiceWorksAdmin(admin.ModelAdmin):
+    list_display = ["Works", "WorksDescription", "mini_service"]
+
+    def miniservice(self, obj):
+        return obj.miniservices.name
+
+admin.site.register(MiniServiceWorkDescription, MiniServiceWorksAdmin)
+
+class WorksAdmin(admin.ModelAdmin):
+    list_display = ["Works", "WorksDescription", "service"]
 
     def service(self, obj):
-        return obj.service.name
-    
-    def plan(self, obj):
-        return obj.plan.plan
+        return obj.services.name
 
-admin.site.register(PlanDescriptions, PlanDescriptionAdmin)
+admin.site.register(WorkDescription, WorksAdmin)
+
+class ExampleServiceAdmin(admin.ModelAdmin):
+    list_display = ["image", "mini_service"]
+
+    def miniservice(self, obj):
+        return obj.miniservices.name
+
+admin.site.register(ExampleService, ExampleServiceAdmin)
