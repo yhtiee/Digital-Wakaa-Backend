@@ -108,6 +108,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'Digital_Wakaa.urls'
 
+CSRF_TRUSTED_ORIGINS = ['https://digital-wakaa-test-site-2.netlify.app']
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
