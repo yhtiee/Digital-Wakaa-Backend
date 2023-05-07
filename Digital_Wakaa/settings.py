@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wmgen&gl2ap3pqaht5_q&xn-&vq&63+zt&i&neg8+h&_=z74l4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', "digital-wakaa-backend-production.up.railway.app"]
 
 # Application definition
 
