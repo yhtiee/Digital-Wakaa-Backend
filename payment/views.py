@@ -4,9 +4,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeCheckoutSessionContentMangementMini(APIView):
     def post(self, request):
         try:
@@ -35,7 +38,8 @@ class StripeCheckoutSessionContentMangementMini(APIView):
             return Response(data={
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
-
+        
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeCheckoutSessionContentMangementPro(APIView):
     def post(self, request):
         try:
@@ -65,6 +69,7 @@ class StripeCheckoutSessionContentMangementPro(APIView):
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeCheckoutSessionContentMangementMaster(APIView):
     def post(self, request):
         try:
@@ -94,6 +99,7 @@ class StripeCheckoutSessionContentMangementMaster(APIView):
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeCheckoutSessionWebDevelopmentMini(APIView):
     def post(self, request):
         try:
@@ -123,6 +129,7 @@ class StripeCheckoutSessionWebDevelopmentMini(APIView):
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeCheckoutSessionWebDevelopmentPro(APIView):
     def post(self, request):
         try:
@@ -152,6 +159,7 @@ class StripeCheckoutSessionWebDevelopmentPro(APIView):
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeCheckoutSessionWebDevelopmentMaster(APIView):
     def post(self, request):
         try:
@@ -181,6 +189,7 @@ class StripeCheckoutSessionWebDevelopmentMaster(APIView):
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeCheckoutSessionSEOMini(APIView):
     def post(self, request):
         try:
@@ -209,7 +218,8 @@ class StripeCheckoutSessionSEOMini(APIView):
             return Response(data={
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
-
+        
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeCheckoutSessionSEOPro(APIView):
     def post(self, request):
         try:
@@ -239,6 +249,7 @@ class StripeCheckoutSessionSEOPro(APIView):
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeCheckoutSessionSEOMaster(APIView):
     def post(self, request):
         try:
@@ -268,6 +279,7 @@ class StripeCheckoutSessionSEOMaster(APIView):
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class StripeCheckoutSessionPPCMini(APIView):
     def post(self, request):
         try:
@@ -297,6 +309,7 @@ class StripeCheckoutSessionPPCMini(APIView):
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
         
+@method_decorator(csrf_exempt, name='dispatch')       
 class StripeCheckoutSessionPPCPro(APIView):
     def post(self, request):
         try:
@@ -326,6 +339,7 @@ class StripeCheckoutSessionPPCPro(APIView):
                 "error": "something went wrong creating stripe checkout session",
             }, status=status.HTTP_400_BAD_REQUEST)
         
+@method_decorator(csrf_exempt, name='dispatch')       
 class StripeCheckoutSessionPPCMaster(APIView):
     def post(self, request):
         try:
