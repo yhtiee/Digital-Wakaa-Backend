@@ -23,7 +23,8 @@ urlpatterns = [
     path("auth/", include("users.urls")),
     path("services/", include("services.urls")),
     path("api/stripe/", include("payment.urls")),
-    path("blog/", include("blog.urls"))
+    path("blog/", include("blog.urls")),
+    path("orders/", include("orders.urls"))
 ]
 
 if settings.DEBUG:

@@ -28,9 +28,7 @@ class GetHowItWOrks(APIView):
 class RetrieveMiniServices(APIView):
     def get(self, request, pk):
         service = Service.objects.filter(pk = pk).values()
-        # print(f"------>{service}")
         mini_services = MiniServices.objects.filter(service_id=service[0]["id"])
-        # print(f"------->{mini_services}")
         serializer = MiniServicesSerializer(mini_services, context={"request": request}, many=True)
         if serializer:
             return Response(data={
