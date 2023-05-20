@@ -25,7 +25,7 @@ class CreateOrder(APIView):
 
             return Response(data={
                 "success":"order successfully created",
-            }, status=status.HTTP_200_OK)
+            }, status=status.HTTP_201_CREATED)
         
         return Response(data={
             "error":"user not found"
@@ -52,7 +52,7 @@ class RetrieveTotalOrders(APIView):
 class RetreivePendingOrders(APIView):
     def get(self, request):
         user = request.user
-        user_data = User.objects.filter(user=user.username).values()
+        user_data = User.objects.filter(username =user.username).values()
         user_ID = user_data[0]["id"]
         orders = Order.objects.filter(user_id = user_ID).values()
         pending = []
@@ -69,7 +69,7 @@ class RetreivePendingOrders(APIView):
 class RetreiveCompletedOrders(APIView):
     def get(self, request):
         user = request.user
-        user_data = User.objects.filter(user=user.username).values()
+        user_data = User.objects.filter(username =user.username).values()
         user_ID = user_data[0]["id"]
         orders = Order.objects.filter(user_id = user_ID).values()
         completed = []
@@ -86,7 +86,7 @@ class RetreiveCompletedOrders(APIView):
 class RetreiveCancelledOrders(APIView):
     def get(self, request):
         user = request.user
-        user_data = User.objects.filter(user=user.username).values()
+        user_data = User.objects.filter(username=user.username).values()
         user_ID = user_data[0]["id"]
         orders = Order.objects.filter(user_id = user_ID).values()
         cancel = []
@@ -96,10 +96,20 @@ class RetreiveCancelledOrders(APIView):
         total_cancelled = len(cancel)
 
         return Response(data={
-            "completed_orders": total_cancelled
+            "cancelled_orders": total_cancelled
         }, status=status.HTTP_200_OK)
     
 class RetrieveAllOrders(APIView):
     def get(self, request):
-        pass
-
+        user = request.user
+        user_data = User.objects.filter(username=user.username).values()
+        user_ID = user_data[0]["id"]
+        orders = Order.objects.filter(user_id = user_ID).values()
+        serializer = OrdersSerializer(orders, context={"request":request}, many=True )
+        if serializer:
+            return Response(data={
+                "orders": serializer.data
+            }, status=status.HTTP_200_OK)
+        return Response(data = {
+            "error": serializer.error
+        }, status=status.HTTP_400_BAD_REQUEST)
