@@ -104,7 +104,8 @@ class RetrieveAllOrders(APIView):
         user = request.user
         user_data = User.objects.filter(username=user.username).values()
         user_ID = user_data[0]["id"]
-        orders = Order.objects.filter(user_id = user_ID).values()
+        orders = Order.objects.filter(user_id = user_ID).values().order_by("-id")
+        print(f"--->{orders}")
         serializer = OrdersSerializer(orders, context={"request":request}, many=True )
         if serializer:
             return Response(data={
